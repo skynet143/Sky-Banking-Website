@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block title %}Transfer Confirmation{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+    .confirmation-section {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .confirmation-details {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .confirmation-message {
+        font-size: 28px;
+        font-weight: bold;
+        color: #0D47A1;
+        text-align: center;
+    }
+
+    .otp-section,
+    .payment-method-section,
+    .card-details-section {
+        margin-top: 20px;
+    }
+
+    .back-to-home {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-to-home a {
+        color: #0D47A1;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .custom-form input[type="text"],
+    .custom-form select,
+    .custom-form button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .custom-form button[type="submit"] {
+        border: none;
+        background-color: #0D47A1;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-form button[type="submit"]:hover {
+        background-color: #003366;
+    }
+
+    .payment-method-label {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .payment-method-options {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .otp-section,
+    .credit-card-fields,
+    .debit-card-fields {
+        display: none;
+    }
+
+    .card-details-section {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    .card-details-label {
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    .card-details-field {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<script>
+    function toggleFields() {
+        var paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+        var otpSection = document.querySelector('.otp-section');
+
+        otpSection.style.display = 'none';
+
+        if (paymentMethod === 'imps' || paymentMethod === 'upi') {
+            otpSection.style.display = 'block';
+        } else {
+            return false;
+        }
+    }
+
+function toggleOTPSection() {
+    var paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+    var otpSection = document.querySelector('.otp-section');
+    var otpButton = document.querySelector('#proceed-to-otp-button');
+
+    otpButton.disabled = true;
+    otpButton.style.display = 'none';
+    otpSection.style.display = 'none';
+
+    if (paymentMethod === 'imps' || paymentMethod === 'upi') {
+        fetch('/send_otp/', {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            console.log(data);
+        })
+        .catch(error => console.error('Error:', error));
+
+        otpSection.style.display = 'block';
+    }
+}
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="confirmation-section">
+                <h2 class="confirmation-message">Confirm Payment</h2>
+                <div class="confirmation-details">
+                    <p>Amount Transferred: {{ transfer_amount }}</p>
+                    <p>Recipient: {{ recipient_name }} ({{ recipient_account_number }})</p>
+                    <p>Transfer Type: {{ transfer_type }}</p>
+                    <p>Remarks: {{ remarks }}</p>
+                </div>
+            </div>
+
+            <!-- Payment method selection section -->
+            <div class="payment-method-section">
+                <form class="custom-form" method="post" action="" onsubmit="toggleFields(); return false;">
+                    {% csrf_token %}
+                    <label class="payment-method-label" for="payment_method">Select Payment Method:</label>
+                    <div class="payment-method-options">
+                        <input type="radio" id="imps" name="payment_method" value="imps" required>
+                        <label for="imps">IMPS</label>
+
+                        <input type="radio" id="upi" name="payment_method" value="upi" required>
+                        <label for="upi">UPI</label>
+                    </div>
+                    <button type="button" id="proceed-to-otp-button" class="btn btn-primary" onclick="toggleOTPSection();">Confirm Payment Method</button>
+                </form>
+            </div>
+
+            <!-- OTP entry section -->
+            <div class="otp-section">
+                <form class="custom-form" method="post" action="{% url 'confirmotp' %}">
+                    {% csrf_token %}
+                    <label for="otp">Enter OTP:</label>
+                    <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+                    <button type="submit" class="btn btn-primary">Confirm OTP</button>
+                </form>
+            </div>
+
+            <div class="back-to-home">
+                <a href="{% url 'home' %}">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Apply For Loan{% endblock %}
+{% block body %}
+<style>
+    .container1 {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: transparent;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #007bff;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    .form {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .form > div {
+        margin-bottom: 10px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        border: none;
+        background-color: #0D47A1;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+        color: #fff;
+    }
+
+    @media (min-width: 600px) {
+        .form {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
+<div class="container"><img src="{% static 'img/loan.png' %}" alt="" height="200" width="100%"></div>
+<div class="container container1">
+{#    <h1 style="color: #0D47A1">Apply For Loan</h1>#}
+{#    <p>Discover our range of personal banking services tailored to meet your financial needs.</p>#}
+
+    <form class="form" method="POST">
+        {% csrf_token %}
+        <div class="mb-6">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" name="fullName" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="phone">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="loanType">Loan Type</label>
+            <select class="form-select" id="loanType" name="loanType" required>
+                <option value="Personal Loan">Personal Loan</option>
+                <option value="Home Loan">Home Loan</option>
+                <option value="Car Loan">Car Loan</option>
+            </select>
+        </div>
+
+        <div class="mb-6">
+            <label for="loanAmount">Loan Amount</label>
+            <input type="number" class="form-control" id="loanAmount" name="loanAmount" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="loanTenure">Loan Tenure (Month)</label>
+            <input type="number" class="form-control" id="loanTenure" name="loanTenure" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="employmentStatus">Employment Status</label>
+            <select class="form-select" id="employmentStatus" name="employmentStatus" required>
+                <option value="employed">Employed</option>
+                <option value="selfEmployed">Self-Employed</option>
+            </select>
+        </div>
+
+        <div class="mb-6">
+            <label for="annualIncome">Annual Income</label>
+            <input type="number" class="form-control" id="annualIncome" name="annualIncome" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="accountNumber">Account Number</label>
+            <input type="text" class="form-control" id="accountNumber" name="accountNumber" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-control" style="height: 47px; margin-top: 30px">Submit
+            Application
+        </button>
+
+    </form>
+</div>
+
+{% if messages %}
+    <div class="container mt-3">
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

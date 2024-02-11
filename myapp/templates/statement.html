@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %} Statement {% endblock %}
+{% block body %}
+
+<style>
+    .container {
+        margin-top: 50px;
+    }
+
+    h1 {
+        color: #0D47A1;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #0D47A1;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        th, td {
+            font-size: 12px;
+            padding: 8px;
+        }
+    }
+
+</style>
+
+<div class="container">
+    <h1>Bank Statement</h1>
+    <p>Here are your recent transactions:</p>
+
+    <!-- Statement Table -->
+    <table class="table">
+        <thead>
+            <tr style="background-color: #0D47A1">
+                <th>Type</th>
+                <th>Account Number</th>
+                <th>Amount</th>
+                <th>Payment Type</th>
+                <th>Recipient Account</th>
+                <th>Transaction Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.get_transaction_type_display }}</td>
+                    <td>{{ transaction.account_number }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.payment_type }}</td>
+                    <td>{{ transaction.recipient_account }}</td>
+                    <td>{{ transaction.timestamp }}</td>
+                </tr>
+                {% if transaction.transaction_type == 'deposit' %}
+                    <tr>
+                        <td colspan="6">
+                            Deposit Details: {{ transaction.get_deposit_details_display }}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

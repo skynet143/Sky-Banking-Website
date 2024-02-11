@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% block title %} Profile {% endblock %}
+{% block body %}
+
+<style>
+    .profile-card-4 .list-icon {
+        display: table-cell;
+        font-size: 30px;
+        padding-right: 20px;
+        vertical-align: middle;
+        color: #223035;
+
+    }
+
+    .profile-card-4 .list-details {
+        display: table-cell;
+        vertical-align: middle;
+        font-weight: 600;
+        color: #223035;
+        font-size: 15px;
+        line-height: 15px;
+    }
+
+    .profile-card-4 .list-details small {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 12px;
+        font-weight: 400;
+        color: #808080;
+    }
+
+    .nav-tabs .nav-link {
+        color: #223035;
+        font-size: 12px;
+        text-align: center;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin: 2px;
+        margin-bottom: 0;
+        padding: 12px 20px;
+        text-transform: uppercase;
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+    .nav-tabs .nav-link:hover {
+        border: 1px solid transparent;
+    }
+
+    .nav-tabs-primary.nav-tabs {
+        border-bottom: 1px solid #008cff;
+    }
+
+    .nav-tabs-primary .nav-link.active, .nav-tabs-primary .nav-item.show > .nav-link {
+        color: #008cff;
+        background-color: #fff;
+        border-color: #008cff #008cff #fff;
+        border-top: 3px solid #008cff;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: .25rem;
+        color: #223035;
+        font-size: 12px;
+        text-align: center;
+        letter-spacing: 1px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 3px;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-pills .nav-link:hover {
+        background-color: #f4f5fa;
+    }
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #fff;
+        background-color: #0D47A1;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(0, 140, 255, 0.5);
+    }
+
+    .loan-info {
+        background-color: #ffffff;
+        box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .loan-info h5 {
+        color: #fff;
+    }
+
+    .loan-info .card {
+        background-color: #fff;
+        border-radius: 8px;
+
+    }
+
+    .loan-info p {
+        margin: 0;
+    }
+
+    .pay-emi-btn {
+        margin-top: 5px;
+    }
+
+    .profile-card-4 {
+        box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+    }
+
+
+</style>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="profile-card-4 z-depth-3">
+                <div class="card">
+                    <div class="card-body text-center rounded-top" style="background-color: #6984a9">
+                        <div class="user-box">
+                            <img src="{{ pvt_info.image.url }}" alt="user avatar" height="100" width="100"
+                                 style="border-radius: 50%">
+                        </div>
+                        <h5 class="mb-1 text-white">{{ pvt_info.first_name }} {{ pvt_info.last_name }}</h5>
+                        <h6 class="mb-1 text-white">Account Number: {{ pvt_info.account_number }}</h6>
+                        <h6 class="mb-1 text-white">Available Balance: {{ pvt_info.initial_deposit }}</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group shadow-none">
+                            <!-- Mobile Number -->
+                            <li class="list-group-item">
+                                <div class="list-icon">
+                                    <i class="fa fa-phone-square"></i>
+                                </div>
+                                <div class="list-details">
+                                    <span>{{ pvt_info.phone_number}}</span>
+                                    <small>Mobile Number</small>
+                                </div>
+                            </li>
+                            <!-- Email Address -->
+                            <li class="list-group-item">
+                                <div class="list-icon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="list-details">
+                                    <span>{{ pvt_info.email }}</span>
+                                    <small>Email Address</small>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="list-group shadow-none mt-2">
+                            <!-- Card Number -->
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <i class="fa-solid fa-credit-card fa-2xl" style="margin-right: 13px"></i>
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="list-details">
+                                            <span class="h6">{{ card_info.card_number }}</span>
+                                            <small>Card Number</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Expiry Date -->
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-6 text-right">
+                                        <div class="list-details">
+                                            <span>{{ card_info.card_expiry }}</span>
+                                            <small>Expiry Date</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- CVV and Card PIN -->
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="list-details">
+                                            <span>{{ card_info.card_cvv }}</span>
+                                            <small>CVV</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <div class="list-details">
+                                            <span>{{ card_info.card_pin }}</span>
+                                            <small>Card PIN</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Loan Information -->
+        <div class="col-lg-8 loan-info mt-2">
+            <h4 class="mt-2" style="color: #0D47A1">Loan Information</h4>
+
+            {% if loan_info %}
+            {% for loan in loan_info %}
+            <!-- Render loan_info data -->
+            <div class="card mb-3" style="border: none">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong><i class="fas fa-money-check"></i> Loan Amount :</strong> ₹ {{ loan.loan_amount }}</li>
+                        <li class="list-group-item"><strong><i class="fa-solid fa-list"></i> Loan Type :</strong> {{ loan.loan_type }}</li>
+                        <li class="list-group-item"><strong><i class="fas fa-percent"></i> Interest :</strong> {{ loan.interest_rate }}%</li>
+                        <li class="list-group-item"><strong><i class="far fa-clock"></i> Loan Tenure :</strong> {{ loan.loan_tenure }} months</li>
+                        <li class="list-group-item"><strong><i class="fas fa-coins"></i> Monthly EMI :</strong> ₹ {{loan.monthly_emi }}</li>
+                        <li class="list-group-item"><strong><i class="fas fa-dollar-sign"></i> Total Amount Due :</strong> ₹ {{ loan.total_amount_due }}</li>
+                        <li class="list-group-item"><strong><i class="fas fa-info-circle"></i> Loan Status :</strong> {{ loan.status }}</li>
+                    </ul>
+                </div>
+                {% if loan.status != "Declined" and loan.status != "Paid" %}
+                <form action="{% url 'pay_emi' loan.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="payment_amount">Enter EMI Amount :</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₹</span>
+                            </div>
+                            <input type="number" class="form-control" name="payment_amount" step="0.01" required
+                                   value="{{ loan.monthly_emi }}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pay-emi-btn">
+                        <i class="fas fa-money-bill-wave"></i> Pay Loan EMI
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% elif loan_status %}
+            {% for loan in loan_status %}
+            <!-- Render loan_status data -->
+            <ul class="list-group">
+                <li class="list-group-item"><strong><i class="fas fa-money-check"></i> Loan Amount :</strong> ₹ {{ loan.loan_amount }}</li>
+                <li class="list-group-item"><strong><i class="fa-solid fa-list"></i> Loan Type :</strong> {{ loan.loan_type }}</li>
+                <li class="list-group-item"><strong><i class="fas fa-percent"></i> Interest :</strong> {{ loan.interest_rate }}%</li>
+                <li class="list-group-item"><strong><i class="far fa-clock"></i> Loan Tenure :</strong> {{ loan.loan_tenure }} months</li>
+                <li class="list-group-item"><strong><i class="fas fa-coins"></i> Monthly EMI :</strong> ₹ {{loan.monthly_emi }}</li>
+                <li class="list-group-item"><strong><i class="fas fa-dollar-sign"></i> Total Amount Due :</strong> ₹ {{ loan.total_amount_due }}</li>
+                <li class="list-group-item"><strong><i class="fas fa-info-circle"></i> Loan Status :</strong> {{ loan.status }}</li>
+            </ul>
+            {% endfor %}
+            {% else %}
+            <p>No active loans</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if messages %}
+<div class="container mt-3">
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+  <script>
+    window.addEventListener('beforeunload', function (event) {
+
+        fetch('/logout-on-unload/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}),
+            async: false,
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Beneficiaries{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        color: #0D47A1;
+    }
+
+    .custom-form {
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        background-color: #0D47A1;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #003366;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #495057;
+    }
+
+    .list-group {
+        margin-top: 20px;
+    }
+
+    .list-group-item {
+        background-color: #ffffff;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #other_bank_fields {
+        margin-top: 20px;
+    }
+
+    #beneficiaryListTable {
+        display: none;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Add Beneficiary</h2>
+                    <form method="post" action="{% url 'manage_beneficiaries' %}" class="custom-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">Beneficiary Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter beneficiary name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="account_number">Account Number:</label>
+                            <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Enter beneficiary account number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bank_name">Bank Name:</label>
+                            <select class="form-control" id="bank_name" name="bank_name" required>
+                                <option value="SkyBank">SkyBank</option>
+                                <option value="OtherBank">Other Bank</option>
+                            </select>
+                        </div>
+
+                        <div id="other_bank_fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="ifsc_code">IFSC Code:</label>
+                                <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Enter IFSC code">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Add Beneficiary</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Beneficiary List</h2>
+                    <button id="showBeneficiaryBtn" class="btn btn-primary btn-block mb-3">Show Beneficiary List</button>
+                    <button id="hideBeneficiaryBtn" class="btn btn-secondary btn-block mb-3" style="display: none;">Hide Beneficiary List</button>
+                    <table id="beneficiaryListTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Account Number</th>
+                                <th>Bank Name</th>
+                                <th>IFSC Code</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for beneficiary in beneficiary_list %}
+                                <tr>
+                                    <td>{{ beneficiary.name }}</td>
+                                    <td>{{ beneficiary.account_number }}</td>
+                                    <td>{{ beneficiary.bank_name }}</td>
+                                    <td>{% if beneficiary.ifsc_code %}{{ beneficiary.ifsc_code }}{% else %}N/A{% endif %}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'delete_beneficiary' beneficiary.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container ">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+    </div>
+
+
+
+<script>
+    document.getElementById('bank_name').addEventListener('change', function() {
+        var otherBankFields = document.getElementById('other_bank_fields');
+        if (this.value === 'OtherBank') {
+            otherBankFields.style.display = 'block';
+        } else {
+            otherBankFields.style.display = 'none';
+        }
+    });
+
+    document.getElementById('showBeneficiaryBtn').addEventListener('click', function() {
+        var beneficiaryListTable = document.getElementById('beneficiaryListTable');
+        var showBtn = document.getElementById('showBeneficiaryBtn');
+        var hideBtn = document.getElementById('hideBeneficiaryBtn');
+
+        beneficiaryListTable.style.display = 'table';
+        showBtn.style.display = 'none';
+        hideBtn.style.display = 'block';
+    });
+
+    document.getElementById('hideBeneficiaryBtn').addEventListener('click', function() {
+        var beneficiaryListTable = document.getElementById('beneficiaryListTable');
+        var showBtn = document.getElementById('showBeneficiaryBtn');
+        var hideBtn = document.getElementById('hideBeneficiaryBtn');
+
+        beneficiaryListTable.style.display = 'none';
+        showBtn.style.display = 'block';
+        hideBtn.style.display = 'none';
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,920 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block body %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+    .jumbotron h1 {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .jumbotron p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+
+
+
+    .col-md-4 {
+        margin-bottom: 30px;
+    }
+
+    .col-md-4 h2 {
+        font-weight: bold;
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #0070cc;
+    }
+
+    .col-md-4 p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .featured-image h2 {
+        font-weight: bold;
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #fff;
+    }
+
+    .testimonial-card {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .testimonial-card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .testimonial p {
+        font-style: italic;
+        font-size: 16px;
+        margin-top: 15px;
+        color: #555;
+    }
+
+    .testimonial-footer {
+        margin-top: 15px;
+        text-align: right;
+        font-size: 14px;
+        color: #777;
+    }
+
+    .security-badge img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .news-item {
+        margin-bottom: 30px;
+    }
+
+    .news-item h2 {
+        font-weight: bold;
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #0D47A1;
+    }
+
+    .news-item h3 {
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .news-item p {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .news-item .btn-secondary {
+        font-size: 16px;
+    }
+
+
+    .custom-featured-image h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .custom-featured-image p {
+        font-size: 16px;
+    }
+
+    .card-deck {
+        margin-top: 30px;
+    }
+
+    .card {
+        transition: transform 0.3s ease-in-out;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-img-top {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 18px;
+        color: #555;
+    }
+
+
+    .security-badge img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    .security-badge h4 {
+        margin-top: 15px;
+        color: #333;
+    }
+
+    .security-badge p {
+        color: #666;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .news-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .news-card img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    .carousel-item {
+        background-size: cover;
+        background-position: center;
+        height: 90vh;
+    }
+
+    .btn-custom {
+
+        color:#0D47A1;
+        border: 2px solid #0D47A1;
+        font-weight: bold;
+        padding: 14px 28px;
+        font-size: 18px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-custom:hover {
+        background-color: #0D47A1;
+        color: #fff;
+    }
+    .animate-slide-left {
+        animation: slide-left 1s ease-in-out;
+    }
+
+    .animate-slide-right {
+        animation: slide-right 1s ease-in-out;
+    }
+
+    .animate-slide-up {
+        animation: slide-up 1s ease-in-out;
+    }
+
+    @keyframes slide-left {
+        from {
+            transform: translateX(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-right {
+        from {
+            transform: translateX(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-up {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    .h1 {
+        font-size: 4em;
+    }
+    .benefit-card {
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    .benefit-card .card-body {
+        padding: 20px;
+    }
+
+    .mb4{
+        border-right: 2px solid  #1D2C5E;
+    }
+
+    .mb4{
+        border-right: 2px solid  #1d2c5e2f;
+    }
+    @media screen and (max-width: 780px) {
+        .col-md-4 {
+          border-right: none; 
+        }
+  
+        .cta {
+          border-top: none;
+        }
+      }
+   
+         .testimonial-card .card-up {
+      height: 100px;
+      overflow: hidden;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+    }
+    .testimonial-card .avatar {
+      width: 110px;
+      margin-top: -60px;
+      overflow: hidden;
+      border: 3px solid #fff;
+      border-radius: 50%;
+    }
+
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+      background-color: #0D47A1;
+    }
+
+    
+    .carousel-control-prev:hover, .carousel-control-next:hover {
+      background-color: #0D47A1;
+    }
+    #testimonialCarousel .carousel-control-prev,
+    #testimonialCarousel .carousel-control-next {
+      width: auto;
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%);
+      font-size: 50px; 
+    }
+  
+    
+    #testimonialCarousel .carousel-control-prev-icon,
+    #testimonialCarousel .carousel-control-next-icon {
+        height: 50px;
+      background-color: #0D47A1;
+    
+    }
+  
+   
+    #testimonialCarousel .carousel-control-prev:hover,
+    #testimonialCarousel .carousel-control-next:hover {
+      background-color: #0D47A1;
+    }
+    .testimonial-card .card-body {
+        max-height: 200px; 
+        overflow: hidden;
+    }
+    .carousel-item {
+        height: 400px; 
+    }
+    .carousel-item {
+        background-size: cover;
+        background-position: center;
+        height: 90vh;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .carousel-caption h1,
+    .carousel-caption h2,
+    .carousel-caption p {
+        color: #fff;
+    }
+
+    .btn-custom {
+        color: #0D47A1;
+        border: 2px solid #0D47A1;
+        font-weight: bold;
+        padding: 14px 28px;
+        font-size: 18px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-custom:hover {
+        background-color: #0D47A1;
+        color: #fff;
+    }
+
+
+    .testimonial-carousel .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .testimonial-card {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin: 0 15px;
+    }
+
+    .testimonial-card .card-body {
+        max-height: 200px;
+        overflow: hidden;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: auto;
+        top: 40%;
+        bottom: auto;
+        transform: translateY(-50%);
+        font-size: 50px;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        height: 50px;
+
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        background-color: #0D47A1;
+    }
+    .testimonial-card .card-body {
+        max-height: 200px;
+        overflow: hidden;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%; 
+    }
+    
+    .carousel-caption h1,
+    .carousel-caption h2,
+    .carousel-caption p {
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+        margin: 0; 
+    }
+    
+    .carousel-caption h1 {
+        font-size: 3rem; 
+    }
+    
+    .carousel-caption h2 {
+        font-size: 1rem; 
+    }
+    .carousel-caption p {
+        font-size: 1.5rem; 
+    }
+    
+    .btn-custom {
+        color: #0D47A1;
+        border: 2px solid #0D47A1;
+        font-weight: bold;
+        padding: 14px 28px;
+        font-size: 18px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .btn-custom:hover {
+        background-color: #0D47A1;
+        color: #fff;
+    }
+.image-container {
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 76vh;
+        }
+
+        .card-content {
+            padding: 20px;
+            border-radius: 8px;
+
+        }
+
+        .card-title {
+            color: #0D47A1;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .card-text {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-family: 'Manrope', sans-serif;
+
+        }
+
+        .row .col-6 {
+            margin-bottom: 20px;
+        }
+
+        .icon {
+
+            color: #0fb4c3;
+            border-radius: 200%;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .service-title {
+            color: black;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-go-somewhere {
+
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 5px;
+            text-align: left;
+            margin-right: 80%;
+        }
+
+        .btn-go-somewhere:hover {
+            background-color: #0D47A1;
+        }
+
+    .steps-section {
+        grid-column: span 2;
+    }
+
+
+    .step h2 {
+        font-size: 24px;
+        color: #0D47A1;
+        margin-bottom: 10px;
+    }
+
+    .step h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .step p {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .cta-section {
+        grid-column: span 1;
+    }
+
+    .cta-section p {
+        font-size: 18px;
+        color: #333;
+    }
+
+    .cta-section a {
+        color: #0D47A1;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .cta-section a:hover {
+        color: #073763;
+    }
+sup{
+    background-color: #0A1633;
+    color: white;
+
+    height: 20px;
+}
+    .steps-section {
+        text-align: center;
+    }
+
+    .step {
+        display: inline-block;
+        text-align: center;
+        padding: 20px;
+       
+    }
+
+    .step img {
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    .cta-section {
+        text-align: center;
+        margin-top: 20px;
+
+    }
+.center{
+    text-align: center;
+}
+
+@keyframes ease-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.ease-in {
+    animation: ease-in 1s ease-in-out;
+}
+.testimonial {
+
+    padding: 50px 0;
+}
+
+.testimonial h2 {
+    color: #0070cc;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.testimonial-card {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.testimonial-card:hover {
+    transform: scale(1.05);
+}
+
+.testimonial-card p {
+    font-size: 16px;
+    color: #555555;
+}
+
+.rating {
+    color: #ffc107;
+    font-size: 20px;
+}
+</style>
+
+<div class="container mt-5">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for banner in mainbanner %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" style="opacity: 0.95;">
+                <img src="{{ banner.main_banner.url }}" class="d-block w-100 image-ease-in" alt="Banner Image" height=550px">
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center ease-in">
+                    <h1 class="text-light h1 animate-slide-left">{{ banner.banner_title|safe }}</h1>
+                    <h2 class="text-light animate-slide-right">{{ banner.secondary_title }}</h2>
+                    <p class="text-light animate-slide-up">{{ banner.banner_description }}</p>
+                    <a style="margin-top: 10rem" href="{% url 'register' %}">
+                        <button class="btn btn-outline-primary btn-custom animate-slide-up" style="color: white;margin-top: 7.5rem">Apply Now</button>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" style="font-size: 4rem;" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
+<!-- Featured Services Section -->
+<div class="container mt-0" >
+    <h1 style="color: #0D47A1;font-weight: bold">Let’s Think Of Saving Money</h1>
+    <div class="card-deck">
+        {% for banner in subbanner %}
+        <div class="card mb-4" id="#services">
+            <img class="card-img-top" src="{{ banner.sub_banner.url }}" alt="Savings Accounts Image" height="200px" width="300px">
+            <div class="card-body">
+                <h5 class="card-title">{{ banner.sub_banner_title }}</h5>
+                <p class="card-text">{{ banner.sub_banner_description }}</p>
+                <a href="#" class="btn btn-outline-primary btn-custom">Learn More</a>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+</div>
+
+<!-- Benefits For Account Holders Section -->
+<div class="container-fluid" style="background-color:#dfe7e9a1">
+<section class="container py-5" id="account-benefits">
+    <h2 class="text-center mb-4 section-title"  style="color: #0D47A1;font-weight: bold">Benefits For Account Holders</h2>
+
+    <div class="row">
+        <!-- Earn Interest -->
+        <div class="col-md-4 mb-4 mb4">
+            <div class="card benefit-card">
+                <div class="card-body">
+                    <img class="mb-3" src="{% static 'img/intrest.png' %}" alt="" height="70px">
+                    <h3 class="card-title center">Earn Interest up to 7%</h3>
+                    <p class="card-text center">Holds these matters principles selection right some rejects.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Free SMS Alerts -->
+        <div class="col-md-4 mb-4 mb4">
+            <div class="card benefit-card">
+                <div class="card-body">
+                    <img class="mb-3" src="{% static 'img/alert.png' %}" alt="" height="70px">
+                    <h3 class="card-title center">Free SMS Alerts</h3>
+                    <p class="card-text center">Business will frequently occur that pleasure have to be repudiated.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discounts on Locker -->
+        <div class="col-md-4 mb-4">
+            <div class="card benefit-card">
+                <div class="card-body">
+                    <img class="mb-3" src="{% static 'img/discount.png' %}" alt="" height="70px">
+                    <h3 class="card-title center">Discounts on Locker</h3>
+                    <p class="card-text center">The wise man therefore always holds these principles of selection.</p>
+                </div>
+            </div>
+        </div>
+        <div class="cta" style="border-top: 2px solid #1d2c5e2c ;"></div> <br>
+        <!-- International Debit Cards -->
+        <div class="col-md-4 mb-4 mb4">
+            <div class="card benefit-card">
+                <div class="card-body">
+                    <img class="mb-3" src="{% static 'img/card.png' %}" alt="" height="70px">
+                    <h3 class="card-title center">International Debit Cards</h3>
+                    <p class="card-text center">The wise man therefore always holds these principles of selection.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Provides Safety -->
+        <div class="col-md-4 mb-4 mb4">
+            <div class="card benefit-card">
+                <div class="card-body">
+                    <img class="mb-3" src="{% static 'img/safety.png' %}" alt="" height="70px">
+                    <h3 class="card-title center">Provides Safety</h3>
+                    <p class="card-text center">These matters principles selection right some rejects holds.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paperless Banking -->
+        <div class="col-md-4 mb-4">
+            <div class="card benefit-card">
+                <div class="card-body">
+                    <img class="mb-3" src="{% static 'img/paperless.png' %}" alt="" height="70px">
+                    <h3 class="card-title center">Paperless Banking</h3>
+                    <p class="card-text center">Occur that pleasure have to be repudiated business will frequently.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="image-container border-right">
+                        <img class="card-img-top" src="{% static 'img/man.png' %}" alt="Card image cap">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-content">
+                        <h1 class="card-title mt-0" style="font-size: 2rem">Online Emergency <br>
+                            Service Requests All In <br>
+                            One Place</h1>
+                        <p class="card-text mt-1">Desire that they cannot foresee the pain & trouble that are bound too
+                            ensue equal blame belongs through shrinking.</p>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="icon"><i class="fas fa-credit-card fa-2x"></i></div>
+                                <h5 class="service-title"> Credit & Debit Card <br>
+                                    Related </h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="icon"><i class="fas fa-mobile-alt fa-2x"></i></div>
+                                <h5 class="service-title"> Mobile & Internet <br>
+                                    Banking
+                                </h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="icon"><i class="fas fa-user fa-2x"></i></div>
+                                <h5 class="service-title"> Account & Personal <br> Details
+                                    Change</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="icon"><i class="fas fa-file-alt fa-2x"></i></div>
+                                <h5 class="service-title"> Cheque Book / DD <br>
+                                    Related
+                                </h5>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-outline-primary btn-custom btn-go-somewhere">Customer FAQ’s</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="background-color:#dfe7e9a1">
+    <div class="container">
+        <h1 style="color: #0D47A1;font-weight:bold">Your Account In Easy Steps</h1>
+        <p>We show our value by serving faithfully.</p>
+        <div class="row">
+            <div class="col-12 col-sm-4">
+                <div class="steps-section">
+                    <div class="step">
+                        <img src="{% static 'img/01.png' %}" height="150px" alt="Image not found">
+                        <h3 style="color: #0D47A1; font-weight:bold">Fill Application Form</h3>
+                        <p>Receive a comprehensive guide on how to complete the application form. We'll explain the process to ensure clarity and address any potential issues.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-4" style="border-left:1px solid #9bacc46a;border-right:1px solid #9bacc46a;" >
+                <div class="steps-section" >
+                    <div class="step">
+                        <img src="{% static 'img/02.png' %}" height="150px" alt="Image not found">
+                        <h3 style="color: #0D47A1; font-weight:bold">Get Approved</h3>
+                        <p>In the world of business, it's common to encounter situations where some pleasures need to be sacrificed to accept necessary annoyances. Learn how to navigate the approval process successfully.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-4">
+                <div class="steps-section">
+                    <div class="step">
+                        <img src="{% static 'img/03.png' %}" height="150px" alt="Image not found">
+                        <h3 style="color: #0D47A1; font-weight:bold">Start Your Savings</h3>
+                        <p>Embrace the freedom to pursue what you enjoy most while strategically managing your finances. Welcome the pleasure of savings and avoid unnecessary financial pains.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="cta-section">
+                    <p>Schedule an appointment with our specialist to discuss. <a href="{% url 'contactus' %}">Contact us</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  News Section -->
+<div class="container" id="latestnews">
+    <div class="row news-item">
+        <div class="col-md-12 text-center">
+            <h2 class="section-title">Latest News</h2>
+        </div>
+        {% for banner in latestnews %}
+        <div class="col-md-4">
+            <div class="news-card">
+                <img src="{{ banner.news1.url }}" alt="Mobile App Image" style="height: 300px">
+                <h3>{{ banner.news1_title }}</h3>
+                <p>{{ banner.news1_description }}</p>
+                <a class="btn btn-outline-primary btn-custom" href="#" role="button">Learn More</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- What Our Customers Say Section -->
+<div class="container-fluid" style="background-color:#dfe7e9a1">
+<div class="container testimonial">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>What Our Customers Say</h2>
+        </div>
+        {% for data in reviews %}
+        <div class="col-md-4">
+            <div class="testimonial-card text-center">
+                <p>{{ data.description }}</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div class="testimonial-footer">
+                    - {{ data.user_name }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI/tZ1a8ATF6F8e6pc3u6pAJlOAfTf8xuKrTtwI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-GLhlTQ8iK2ZZK+T9I6fbtF5/sW2KZeaW6l5Fi6s9UqU/DJQ8CkYTr4Up3eZ9EMNP" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+
+
+
+
+
+

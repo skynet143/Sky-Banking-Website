@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Beneficiary List</h2>
+                    <button id="showBeneficiaryBtn" class="btn btn-primary btn-block mb-3">Show Beneficiary List</button>
+                    <ul id="beneficiaryList" class="list-group">
+                        {% for beneficiary in beneficiary_list %}
+                            <li class="list-group-item">{{ beneficiary.name }} - {{ beneficiary.account_number }} - {{ beneficiary.bank_name }}{% if beneficiary.ifsc_code %} - {{ beneficiary.ifsc_code }}{% endif %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

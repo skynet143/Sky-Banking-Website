@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Online Banking {% endblock %}
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .banner {
+        height: 500px;
+        background-image: url("{% static 'img/login.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        padding: 5%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    .card h3 {
+        color: #0d47a1;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #e30613;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #e30613;
+    }
+
+    .benefit-img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .benefit-section {
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .benefit-title {
+        color: #0d47a1;
+    }
+
+    .benefit-description {
+        color: #666;
+    }
+
+    .cust {
+        width: 325px;
+        height: 60px;
+        border-radius: 50px;
+        margin-top: 20px;
+
+    }
+
+    @media (min-width: 768px) {
+        .banner {
+            padding: 10%;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="banner">
+        <a class="but" href="{% url 'login' %}">
+            <button type="button" class="btn btn-danger btn-lg mt-1 cust">Login to Net Banking</button>
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>NetBanking Benefits</h3>
+        <div class="row">
+            <!-- Benefit Section 1 -->
+            <div class="col-md-4">
+                <div class="mb-4 benefit-section">
+                    <img src="{% static 'img/pc.png' %}" alt="Money Transfer Image" class="benefit-img" style="width: 150px;">
+                    <h4 class="benefit-title">Money Transfer</h4>
+                    <p class="benefit-description">Pay your maid/driver’s salary, society maintenance & transfer money to your friends and family through NEFT/RTGS/IMPS.</p>
+                </div>
+            </div>
+            <!-- Benefit Section 2 -->
+            <div class="col-md-4">
+                <div class="mb-4 benefit-section">
+                    <img src="{% static 'img/bill.png' %}" alt="Pay Bills Image" class="benefit-img" style="width: 150px;">
+                    <h4 class="benefit-title">Pay Bills</h4>
+                    <p class="benefit-description">Pay your electricity, mobile, gas, water, and DTH Bills. Recharge your pre-paid mobile number.</p>
+                </div>
+            </div>
+            <!-- Benefit Section 3 -->
+            <div class="col-md-4">
+                <div class="mb-4 benefit-section">
+                    <img src="{% static 'img/shop.png' %}" alt="Shop Online Image" class="benefit-img" style="width: 150px;">
+                    <h4 class="benefit-title">Shop Online</h4>
+                    <p class="benefit-description">Shop online across Fashion, Food, Travel, and Entertainment using NetBanking as a payment option.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Benefit Section 4 -->
+            <div class="col-md-4">
+                <div class="mb-4 benefit-section">
+                    <img src="{% static 'img/cards.png' %}" alt="Upgrade Lifestyle Image" class="benefit-img" style="width: 150px;">
+                    <h4 class="benefit-title">Upgrade Your Lifestyle</h4>
+                    <p class="benefit-description">Empower yourself with the various tailor-made loan & credit/debit card options to suit your needs.</p>
+                </div>
+            </div>
+            <!-- Benefit Section 5 -->
+            <div class="col-md-4">
+                <div class="mb-4 benefit-section">
+                    <img src="{% static 'img/invest.png' %}" alt="Invest Image" class="benefit-img" style="width: 150px;">
+                    <h4 class="benefit-title">Invest</h4>
+                    <p class="benefit-description">Create wealth by purchasing monetary assets like FD’s Mutual Funds, Shares & Insurance.</p>
+                </div>
+            </div>
+            <!-- Benefit Section 6 -->
+            <div class="col-md-4">
+                <div class="mb-4 benefit-section">
+                    <img src="{% static 'img/account.png' %}" alt="Account Management Image" class="benefit-img" style="width: 150px;">
+                    <h4 class="benefit-title">Account Management</h4>
+                    <p class="benefit-description">Manage, keep track & control your bank account & expenses.</p>
+                </div>
+            </div>
+        </div>
+         <a class="but" href="{% url 'login' %}">
+            <button type="button" class="btn btn-danger btn-lg mt-1 cust">Login to Net Banking</button>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

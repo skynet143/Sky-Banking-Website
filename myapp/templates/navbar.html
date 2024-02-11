@@ -1,0 +1,129 @@
+{% load static %}
+<style>
+    .center-navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 18vw;
+    }
+
+    .navbar-nav {
+        display: flex;
+    }
+
+    .navbar-nav .ml-auto {
+        margin-left: auto !important;
+    }
+
+    .navbar {
+        background-color: #00549E; /* HDFC Bank blue color */
+    }
+
+    .navbar .navbar-brand {
+        color: #ffffff;
+    }
+
+    .navbar .nav-link {
+        color: #ffffff;
+    }
+
+    .navbar .nav-link:hover {
+        color: #80D8FF; /* Light blue color on hover */
+    }
+
+    .container {
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .navbar-nav .ml-help {
+        margin-left: auto !important;
+    }
+
+    .dropdown-menu {
+        background-color: #00549E; /* HDFC Bank blue color for dropdown */
+    }
+
+    .dropdown-menu a {
+        color: #ffffff !important;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #80D8FF; /* Light blue color on hover for dropdown items */
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00549E;">
+    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/BankLogo.png' %}" height="40px"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="center-navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+                </li>
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user"></i> Create Bank Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'onlinebanking' %}"><i class="fas fa-mobile-alt"></i> Pay &
+                            Transfer</a>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-money-check-alt"></i> Services
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'moneytransfer' %}">
+                                <i class="fas fa-exchange-alt"></i> Money Transfer
+                            </a>
+                            <a class="dropdown-item" href="{% url 'deposit' %}">
+                                <i class="fas fa-money-bill-wave"></i> Deposit Amount
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'manage_beneficiaries' %}">
+                                <i class="fas fa-user-plus"></i> Add Beneficiary
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'applyforloan' %}"><i class="fas fa-building"></i> Apply For
+                            Loan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'statement' %}"><i class="fas fa-file-alt"></i> Statements</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contactus' %}"><i class="fas fa-envelope"></i> Contact Us</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link profile-menu" href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'help' %}"><i class="fas fa-question-circle"></i> Help</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

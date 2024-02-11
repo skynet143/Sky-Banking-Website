@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}Login Form{% endblock %}
+{% block body %}
+<style>
+    .custom-form {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .custom-form label {
+        font-weight: bold;
+    }
+
+    .custom-form input[type="text"],
+    .custom-form input[type="email"],
+    .custom-form input[type="tel"],
+    .custom-form input[type="date"],
+    .custom-form input[type="password"],
+    .custom-form select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        margin-bottom: 10px;
+    }
+
+    .custom-form button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .custom-form button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .custom-form select {
+        text-align-last: center;
+        font-size: 14px;
+        height: 40px;
+    }
+
+    .custom-form select option {
+        text-align: center;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .center-form-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    @media (max-width: 576px) {
+        .custom-form {
+            padding: 15px;
+            max-width: none;
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="heading">
+        <h2 style="color: #0070cc">Login Form</h2>
+    </div>
+    <form class="custom-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="center-form-group">
+        <p>Forgot your password? <a href="">Reset Password</a></p>
+    </div>
+
+    <div class="center-form-group">
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</div>
+{% if messages %}
+    <div class="container mt-3">
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

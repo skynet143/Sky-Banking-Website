@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+        {% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bank Reports</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #0D47A1;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        nav {
+            background-color: #0D47A1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        nav a:hover {
+            color: #80D8FF;
+        }
+        section {
+            padding: 30px;
+            background-color: #fff;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            color: #0D47A1;
+            margin-bottom: 20px;
+        }
+        section h3 {
+            color: #0D47A1;
+            margin-top: 20px;
+        }
+        section p {
+            color: #333;
+            font-size: 16px;
+        }
+        footer {
+            background-color: #0D47A1;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'img/SkyBankLogo.png' %}" height="40px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="flex-grow-1"></div>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'adminlogout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'adminlogin' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <section id="financial-reports">
+        <h2 class="mb-4">Financial Reports</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Balance Sheet</h3>
+                <p>Assets: $X</p>
+                <p>Liabilities: $Y</p>
+                <p>Equity: $Z</p>
+            </div>
+            <div class="col-md-6">
+                <h3>Income Statement</h3>
+                <p>Revenue: $A</p>
+                <p>Expenses: $B</p>
+                <p>Profit: $C</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="operational-reports">
+        <h2 class="mb-4">Operational Reports</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Transaction History</h3>
+                <p>Transaction 1: $Amount</p>
+                <p>Transaction 2: $Amount</p>
+            </div>
+            <div class="col-md-6">
+                <h3>Account Activity</h3>
+                <p>Deposit: $D</p>
+                <p>Withdrawal: $E</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="customer-reports">
+        <h2 class="mb-4">Customer Reports</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Customer Demographics</h3>
+                <p>Total Customers: N</p>
+                <p>Customer Age Distribution: </p>
+            </div>
+            <div class="col-md-6">
+                <h3>Account Aging Report</h3>
+                <p>Accounts Receivable: $F</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add more sections for other report categories -->
+
+    <footer>
+        <p>&copy; 2023 Your Bank Name. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

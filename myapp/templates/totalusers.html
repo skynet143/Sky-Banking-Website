@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+        {% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Bootstrap CSS (You can replace the CDN with a local Bootstrap file if needed) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS (You can replace the CDN with a local Font Awesome file if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #0D47A1;
+        }
+
+        .navbar .navbar-brand {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .navbar .nav-link {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .navbar .nav-link:hover {
+            color: #80D8FF;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ffffff;
+        }
+        </style>
+    <body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'img/SkyBankLogo.png' %}" height="40px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="flex-grow-1"></div>
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'adminlogout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'adminlogin' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <h1 class="text-center" style="color: #0D47A1">User Data</h1>
+    <div class="row mt-3">
+        <div class="col-md-6 offset-md-3">
+            <form method="GET" action="">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter User Details" name="q"
+                           value="{{ request.GET.q }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-primary" style="color: white" type="submit">Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if data %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Pin Code</th>
+                    <th>Image</th>
+                    <th>Signature</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
+                    <th>Phone Number</th>
+                    <th>Marital Status</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for datas in data %}
+                <tr>
+                    <td>{{datas.id}}</td>
+                    <td>{{datas.first_name}}</td>
+                    <td>{{datas.last_name}}</td>
+                    <td>{{ datas.email }}</td>
+                    <td>{{ datas.address1 }}</td>
+                    <td>{{ datas.city }}</td>
+                    <td>{{ datas.state }}</td>
+                    <td>{{ datas.zip_code }}</td>
+                    <td><img src="{{ datas.image.url }}" alt="User Image" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
+                    <td><img src="{{ datas.signature.url }}" alt="User Signature" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
+                    <td>{{ datas.gender }}</td>
+                    <td>{{ datas.date_of_birth }}</td>
+                    <td>{{ datas.phone_number }}</td>
+                    <td>{{ datas.marital_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <h1>No records in the table</h1>
+    {% endif %}
+</div>
+
+{% if messages %}
+    <div class="container mt-3">
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+</body>
+</html>
